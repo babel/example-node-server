@@ -1,0 +1,19 @@
+{
+  "name": "example-node-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon lib/index.js --exec babel-node",
+    "build": "babel lib -d dist",
+    "serve": "node dist/index.js",
+    "test": "mocha --compilers js:babel/register"
+  },
+  "author": "James Kyle <me@thejameskyle.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "mocha": "^2.3.0",
+    "nodemon": "^1.4.1"
+  }
+}
