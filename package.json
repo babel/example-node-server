@@ -2,7 +2,7 @@
   "name": "example-node-server",
   "version": "1.0.0",
   "description": "Example Node Server w/ Babel",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "nodemon lib/index.js --exec babel-node",
     "build": "babel lib -d dist",
