@@ -116,11 +116,8 @@ recompile our files.
 
 Oh let's not forget to add `dist` to our `.gitignore` file.
 
-```
-$ touch .gitignore
-
-```
-dist
+```shell
+$ echo dist >> .gitignore
 ```
 
 This will make sure we don't accidentally commit our built files to git.
