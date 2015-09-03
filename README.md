@@ -116,8 +116,9 @@ recompile our files.
 
 Oh let's not forget to add `dist` to our `.gitignore` file.
 
-```
+```shell
 $ touch .gitignore
+```
 
 ```
 dist
