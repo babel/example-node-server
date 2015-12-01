@@ -4,7 +4,7 @@
   "description": "Example Node Server w/ Babel",
   "main": "lib/index.js",
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node",
+    "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
     "test": "mocha --compilers js:babel/register"
@@ -12,7 +12,9 @@
   "author": "James Kyle <me@thejameskyle.com>",
   "license": "ISC",
   "devDependencies": {
-    "babel": "^5.8.23",
+    "babel-cli": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-stage-2": "^6.1.18",
     "mocha": "^2.3.0",
     "nodemon": "^1.4.1"
   }
