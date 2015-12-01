@@ -8,7 +8,7 @@ First we'll install `babel-cli`.
 $ npm install --save-dev babel-cli
 ```
 
-Along with some [presets]().
+Along with some [presets](http://babeljs.io/docs/plugins/#presets).
 
 ```shell
 $ npm install --save-dev babel-preset-es2015 babel-preset-stage-2
