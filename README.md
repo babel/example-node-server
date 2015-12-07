@@ -153,9 +153,9 @@ Now we can remove the duplicated options from our npm scripts
 
 ```diff
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node",
++   "start": "nodemon lib/index.js --exec babel-node",
 +   "build": "babel lib -d dist",
-+   "serve": "node dist/index.js"
+    "serve": "node dist/index.js"
   }
 ```
 
