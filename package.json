@@ -7,15 +7,16 @@
     "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
-    "test": "mocha --compilers js:babel/register"
+    "test": "mocha --compilers js:babel-register"
   },
   "author": "James Kyle <me@thejameskyle.com>",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.2.0",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-preset-stage-2": "^6.1.18",
-    "mocha": "^2.3.0",
-    "nodemon": "^1.4.1"
+    "babel-cli": "^6.3.15",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-2": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "mocha": "^2.3.4",
+    "nodemon": "^1.8.1"
   }
 }
