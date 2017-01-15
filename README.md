@@ -80,9 +80,9 @@ If you visit `http://127.0.0.1:1337` you should see our server greeting you.
 ### Getting ready for production use
 
 So we've cheated a little bit by using `babel-node`. While this is great for
-getting something going. It's not a good idea to use it in production.
+getting something going, it's not a good idea to use it in production.
 
-We should be precompiling your files, so let's do that now.
+We should be precompiling our files, so let's do that now.
 
 First let's move our server `index.js` file to `lib/index.js`.
 
@@ -99,7 +99,7 @@ And update our `npm start` script to reflect the location change.
   }
 ```
 
-Next let's add two new tasks `npm run build` and `npm run serve`.
+Next let's add two new tasks, `npm run build` and `npm run serve`.
 
 ```diff
   "scripts": {
@@ -120,7 +120,7 @@ $ npm run serve
 This means we can quickly restart our server without waiting for `babel` to
 recompile our files.
 
-Oh let's not forget to add `dist` to our `.gitignore` file.
+Oh, let's not forget to add `dist` to our `.gitignore` file:
 
 ```shell
 $ touch .gitignore
