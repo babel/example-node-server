@@ -2,10 +2,10 @@
   "name": "example-node-server",
   "version": "1.0.0",
   "description": "Example Node Server w/ Babel",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
-    "build": "babel lib -d dist",
+    "start": "nodemon src/index.js --exec babel-node",
+    "build": "babel src -d dist",
     "serve": "node dist/index.js",
     "test": "mocha --compilers js:babel-register"
   },
