@@ -84,10 +84,10 @@ getting something going, it's not a good idea to use it in production.
 
 We should be precompiling our files, so let's do that now.
 
-First let's move our server `index.js` file to `lib/index.js`.
+First let's move our server `index.js` file to `src/index.js`.
 
 ```shell
-$ mv index.js lib/index.js
+$ mv index.js src/index.js
 ```
 
 And update our `npm start` script to reflect the location change.
@@ -95,7 +95,7 @@ And update our `npm start` script to reflect the location change.
 ```diff
   "scripts": {
 -   "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
-+   "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2"
++   "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2"
   }
 ```
 
@@ -103,7 +103,7 @@ Next let's add two new tasks, `npm run build` and `npm run serve`.
 
 ```diff
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
+    "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
 +   "build": "babel lib -d dist --presets es2015,stage-2",
 +   "serve": "node dist/index.js"
   }
@@ -153,7 +153,7 @@ Now we can remove the duplicated options from our npm scripts
 
 ```diff
   "scripts": {
-+   "start": "nodemon lib/index.js --exec babel-node",
++   "start": "nodemon src/index.js --exec babel-node",
 +   "build": "babel lib -d dist",
     "serve": "node dist/index.js"
   }
@@ -180,7 +180,7 @@ $ touch test/index.js
 import http from 'http';
 import assert from 'assert';
 
-import '../lib/index.js';
+import '../src/index.js';
 
 describe('Example Node Server', () => {
   it('should return 200', done => {
@@ -202,7 +202,7 @@ Then we can add an `npm test` script.
 
 ```diff
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node",
+    "start": "nodemon src/index.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
 +   "test": "mocha --compilers js:babel-register"
