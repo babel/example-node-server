@@ -205,7 +205,7 @@ Then we can add an `npm test` script.
     "start": "nodemon lib/index.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
-+   "test": "mocha --compilers js:babel-register"
++   "test": "mocha --require babel-register"
   }
 ```
 
