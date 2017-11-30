@@ -11,7 +11,7 @@ $ npm install --save-dev babel-cli
 Along with some [presets](http://babeljs.io/docs/plugins/#presets).
 
 ```shell
-$ npm install --save-dev babel-preset-es2015 babel-preset-stage-2
+$ npm install --save-dev babel-preset-env babel-preset-stage-2
 ```
 
 Then create our server in `index.js`.
@@ -34,7 +34,7 @@ Then we'll add our first `npm start` script in `package.json`.
 
 ```diff
   "scripts": {
-+   "start": "babel-node index.js --presets es2015,stage-2"
++   "start": "babel-node index.js --presets env,stage-2"
   }
 ```
 
@@ -59,7 +59,7 @@ Then we can update our `npm start` script.
 ```diff
   "scripts": {
 -   "start": "babel-node index.js"
-+   "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
++   "start": "nodemon index.js --exec babel-node --presets env,stage-2"
   }
 ```
 
@@ -94,8 +94,8 @@ And update our `npm start` script to reflect the location change.
 
 ```diff
   "scripts": {
--   "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
-+   "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2"
+-   "start": "nodemon index.js --exec babel-node --presets env,stage-2"
++   "start": "nodemon lib/index.js --exec babel-node --presets env,stage-2"
   }
 ```
 
@@ -103,8 +103,8 @@ Next let's add two new tasks, `npm run build` and `npm run serve`.
 
 ```diff
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
-+   "build": "babel lib -d dist --presets es2015,stage-2",
+    "start": "nodemon lib/index.js --exec babel-node --presets env,stage-2",
++   "build": "babel lib -d dist --presets env,stage-2",
 +   "serve": "node dist/index.js"
   }
 ```
@@ -144,7 +144,7 @@ This will host any options we might want to configure `babel` with.
 
 ```json
 {
-  "presets": ["es2015", "stage-2"],
+  "presets": ["env", "stage-2"],
   "plugins": []
 }
 ```
