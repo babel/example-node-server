@@ -2,16 +2,24 @@
 
 ### Getting Started
 
-First we'll install `babel-cli`.
+First we'll install `babel-cli` and `babel-preset-env`.
 
 ```shell
-$ npm install --save-dev babel-cli
+$ npm install --save-dev babel-cli babel-preset-env
 ```
 
-Along with some [presets](http://babeljs.io/docs/plugins/#presets).
+Then we'll create a `.babelrc` file for configuring babel.
 
 ```shell
-$ npm install --save-dev babel-preset-es2015 babel-preset-stage-2
+$ touch .babelrc
+```
+
+This will host any options we might want to configure `babel` with.
+
+```json
+{
+  "presets": ["env"]
+}
 ```
 
 Then create our server in `index.js`.
@@ -30,11 +38,23 @@ http.createServer((req, res) => {
 console.log('Server running at http://127.0.0.1:1337/');
 ```
 
-Then we'll add our first `npm start` script in `package.json`.
+With recent changes to babel, you will need to transpile your ES6 before node can run it.
+
+So, we'll add our first script, `build`, in `package.json`.
 
 ```diff
   "scripts": {
-+   "start": "babel-node index.js --presets es2015,stage-2"
++   "build": "babel index.js -d dist"
+  }
+```
+
+Then we'll add our `start` script in `package.json`.
+
+
+```diff
+  "scripts": {
+   "build": "babel index.js -d dist",
++   "start": "npm run build && node dist/index.js"
   }
 ```
 
@@ -58,8 +78,9 @@ Then we can update our `npm start` script.
 
 ```diff
   "scripts": {
--   "start": "babel-node index.js"
-+   "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
+    "build": "babel index.js -d dist",
+-   "start": "npm run build && node dist/index.js"
++   "start": "npm run build && nodemon dist/index.js"
   }
 ```
 
@@ -79,14 +100,10 @@ If you visit `http://127.0.0.1:1337` you should see our server greeting you.
 
 ### Getting ready for production use
 
-So we've cheated a little bit by using `babel-node`. While this is great for
-getting something going, it's not a good idea to use it in production.
-
-We should be precompiling our files, so let's do that now.
-
 First let's move our server `index.js` file to `lib/index.js`.
 
 ```shell
+$ mkdir lib
 $ mv index.js lib/index.js
 ```
 
@@ -94,17 +111,18 @@ And update our `npm start` script to reflect the location change.
 
 ```diff
   "scripts": {
--   "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
-+   "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2"
+-   "build": "babel index.js -d dist",
++   "build": "babel lib -d dist",
+    "start": "npm run build && nodemon dist/index.js"
   }
 ```
 
-Next let's add two new tasks, `npm run build` and `npm run serve`.
+Next let's add a new task: `npm run serve`.
 
 ```diff
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node --presets es2015,stage-2",
-+   "build": "babel lib -d dist --presets es2015,stage-2",
+    "build": "babel lib -d dist",
+    "start": "npm run build && nodemon dist/index.js",
 +   "serve": "node dist/index.js"
   }
 ```
@@ -131,33 +149,6 @@ dist
 ```
 
 This will make sure we don't accidentally commit our built files to git.
-
-### Saving Babel options to `.babelrc`
-
-Let's create a `.babelrc` file.
-
-```shell
-$ touch .babelrc
-```
-
-This will host any options we might want to configure `babel` with.
-
-```json
-{
-  "presets": ["es2015", "stage-2"],
-  "plugins": []
-}
-```
-
-Now we can remove the duplicated options from our npm scripts
-
-```diff
-  "scripts": {
-+   "start": "nodemon lib/index.js --exec babel-node",
-+   "build": "babel lib -d dist",
-    "serve": "node dist/index.js"
-  }
-```
 
 ### Testing the server
 
@@ -205,7 +196,7 @@ Then we can add an `npm test` script.
     "start": "nodemon lib/index.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
-+   "test": "mocha --compilers js:babel-register"
++   "test": "mocha --require babel-register"
   }
 ```
 
