@@ -2,7 +2,7 @@
 
 ### Getting Started
 
-First we'll install `babel-cli` and `babel-preset-env`.
+First we'll install `babel-cli`, `babel-node`, and `babel-preset-env`.
 
 ```shell
 $ npm install --save-dev babel-cli babel-preset-env
@@ -54,7 +54,7 @@ Then we'll add our `start` script in `package.json`.
 ```diff
   "scripts": {
    "build": "babel index.js -d dist",
-+   "start": "npm run build && node dist/index.js"
++   "start": "babel-node index.js"
   }
 ```
 
@@ -79,8 +79,8 @@ Then we can update our `npm start` script.
 ```diff
   "scripts": {
     "build": "babel index.js -d dist",
--   "start": "npm run build && node dist/index.js"
-+   "start": "npm run build && nodemon dist/index.js"
+-   "start": "babel-node index.js"
++   "start": "nodemon --exec babel-node index.js"
   }
 ```
 
@@ -107,13 +107,14 @@ $ mkdir lib
 $ mv index.js lib/index.js
 ```
 
-And update our `npm start` script to reflect the location change.
+And update our `npm start` and `npm build` scripts to reflect the location change.
 
 ```diff
   "scripts": {
 -   "build": "babel index.js -d dist",
 +   "build": "babel lib -d dist",
-    "start": "npm run build && nodemon dist/index.js"
+-   "start": "nodemon --exec babel-node index.js",
++   "start": "nodemon --exec babel-node lib"
   }
 ```
 
@@ -122,8 +123,8 @@ Next let's add a new task: `npm run serve`.
 ```diff
   "scripts": {
     "build": "babel lib -d dist",
-    "start": "npm run build && nodemon dist/index.js",
-+   "serve": "node dist/index.js"
+    "start": "nodemon --exec babel-node lib",
++   "serve": "babel-node dist"
   }
 ```
 
@@ -193,7 +194,7 @@ Then we can add an `npm test` script.
 
 ```diff
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node",
+    "start": "nodemon --exec babel-node index.js",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
 +   "test": "mocha --require babel-register"
