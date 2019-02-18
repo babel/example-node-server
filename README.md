@@ -2,10 +2,10 @@
 
 ### Getting Started
 
-First we'll install `babel-cli` and `babel-preset-env`.
+First we'll install `@babel/core`, `@babel/cli` and `@babel/preset-env`.
 
 ```shell
-$ npm install --save-dev babel-cli babel-preset-env
+$ npm install --save-dev @babel/core @babel/cli @babel/preset-env
 ```
 
 Then we'll create a `.babelrc` file for configuring babel.
@@ -18,7 +18,7 @@ This will host any options we might want to configure `babel` with.
 
 ```json
 {
-  "presets": ["env"]
+  "presets": ["@babel/preset-env"]
 }
 ```
 
@@ -53,8 +53,9 @@ Then we'll add our `start` script in `package.json`.
 
 ```diff
   "scripts": {
-   "build": "babel index.js -d dist",
-+   "start": "npm run build && node dist/index.js"
++   "start": "npm run build && node dist/index.js",
+    "build": "babel index.js -d dist"
+
   }
 ```
 
@@ -66,21 +67,21 @@ $ npm start
 
 You should now be able to visit `http://127.0.0.1:1337` and see `Hello World`.
 
-### Watching file changes with `nodemon`
+### Watching file changes with `nodemon` and `@babel/node`
 
-We can improve our `npm start` script with `nodemon`.
+We can improve our `npm start` script with `nodemon` and `@babel/node`.
 
 ```shell
-$ npm install --save-dev nodemon
+$ npm install --save-dev nodemon @babel/node
 ```
 
 Then we can update our `npm start` script.
 
 ```diff
   "scripts": {
-    "build": "babel index.js -d dist",
--   "start": "npm run build && node dist/index.js"
-+   "start": "npm run build && nodemon dist/index.js"
+-   "start": "npm run build && node dist/index.js",
++   "start": "nodemon --exec babel-node index.js",
+    "build": "babel index.js -d dist"
   }
 ```
 
@@ -111,9 +112,10 @@ And update our `npm start` script to reflect the location change.
 
 ```diff
   "scripts": {
--   "build": "babel index.js -d dist",
-+   "build": "babel lib -d dist",
-    "start": "npm run build && nodemon dist/index.js"
+-   "start": "nodemon --exec babel-node index.js",
++   "start": "nodemon --exec babel-node lib/index.js",
+-   "build": "babel index.js -d dist"
++   "build": "babel lib/index.js -d dist"
   }
 ```
 
@@ -121,8 +123,8 @@ Next let's add a new task: `npm run serve`.
 
 ```diff
   "scripts": {
-    "build": "babel lib -d dist",
-    "start": "npm run build && nodemon dist/index.js",
+    "start": "nodemon --exec babel-node lib/index.js",
+    "build": "babel lib/index.js -d dist",
 +   "serve": "node dist/index.js"
   }
 ```
@@ -183,18 +185,18 @@ describe('Example Node Server', () => {
 });
 ```
 
-Next, install `babel-register` for the require hook.
+Next, install `@babel/register` for the require hook.
 
 ```shell
-$ npm install --save-dev babel-register
+$ npm install --save-dev @babel/register
 ```
 
 Then we can add an `npm test` script.
 
 ```diff
   "scripts": {
-    "start": "nodemon lib/index.js --exec babel-node",
-    "build": "babel lib -d dist",
+    "start": "nodemon --exec babel-node lib/index.js ",
+    "build": "babel lib/index.js -d dist",
     "serve": "node dist/index.js",
 +   "test": "mocha --require babel-register"
   }
