@@ -2,10 +2,10 @@
 
 ### Getting Started
 
-First we'll install `babel-cli` and `babel-preset-env`.
+First we'll install `@babel/cli`, `@babel/preset-env` and `@babel/core`.
 
 ```shell
-$ npm install --save-dev babel-cli babel-preset-env
+$ npm install --save-dev @babel/cli @babel/preset-env @babel/core 
 ```
 
 Then we'll create a `.babelrc` file for configuring babel.
@@ -18,7 +18,7 @@ This will host any options we might want to configure `babel` with.
 
 ```json
 {
-  "presets": ["env"]
+  "presets": ["@babel/preset-env"]
 }
 ```
 
@@ -183,10 +183,10 @@ describe('Example Node Server', () => {
 });
 ```
 
-Next, install `babel-register` for the require hook.
+Next, install `@babel/register` for the require hook.
 
 ```shell
-$ npm install --save-dev babel-register
+$ npm install --save-dev @babel/register
 ```
 
 Then we can add an `npm test` script.
@@ -196,7 +196,7 @@ Then we can add an `npm test` script.
     "start": "nodemon lib/index.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
-+   "test": "mocha --require babel-register"
++   "test": "mocha --require @babel/register"
   }
 ```
 
