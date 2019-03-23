@@ -2,10 +2,10 @@
 
 ### Getting Started
 
-First we'll install `babel-cli` and `babel-preset-env`.
+First we'll install `@babel/cli`, `@babel/core` and `@babel/preset-env`.
 
 ```shell
-$ npm install --save-dev babel-cli babel-preset-env
+$ npm install --save-dev @babel/cli @babel/core @babel/preset-env
 ```
 
 Then we'll create a `.babelrc` file for configuring babel.
@@ -18,7 +18,7 @@ This will host any options we might want to configure `babel` with.
 
 ```json
 {
-  "presets": ["env"]
+  "presets": ["@babel/preset-env"]
 }
 ```
 
@@ -30,12 +30,14 @@ $ touch index.js
 ```js
 import http from 'http';
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.end('Hello World\n');
 }).listen(1337, '127.0.0.1');
 
 console.log('Server running at http://127.0.0.1:1337/');
+
+export default server;
 ```
 
 With recent changes to babel, you will need to transpile your ES6 before node can run it.
@@ -171,22 +173,23 @@ $ touch test/index.js
 import http from 'http';
 import assert from 'assert';
 
-import '../lib/index.js';
+import server from '../lib/index.js';
 
 describe('Example Node Server', () => {
   it('should return 200', done => {
     http.get('http://127.0.0.1:1337', res => {
       assert.equal(200, res.statusCode);
+      server.close();
       done();
     });
   });
 });
 ```
 
-Next, install `babel-register` for the require hook.
+Next, install `@babel/register` for the require hook.
 
 ```shell
-$ npm install --save-dev babel-register
+$ npm install --save-dev @babel/register
 ```
 
 Then we can add an `npm test` script.
@@ -196,7 +199,7 @@ Then we can add an `npm test` script.
     "start": "nodemon lib/index.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
-+   "test": "mocha --require babel-register"
++   "test": "mocha --require @babel/register"
   }
 ```
 
