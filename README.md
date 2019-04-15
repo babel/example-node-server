@@ -55,7 +55,7 @@ Then we'll add our `start` script in `package.json`.
 
 ```diff
   "scripts": {
-   "build": "babel index.js -d dist",
+    "build": "babel index.js -d dist",
 +   "start": "npm run build && node dist/index.js"
   }
 ```
