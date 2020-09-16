@@ -82,7 +82,7 @@ Then we can update our `npm start` script.
   "scripts": {
     "build": "babel index.js -d dist",
 -   "start": "npm run build && node dist/index.js"
-+   "start": "npm run build && nodemon dist/index.js"
++   "start": "nodemon --exec \"npm run build && node dist/index.js\" -e js --ignore dist/"
   }
 ```
 
